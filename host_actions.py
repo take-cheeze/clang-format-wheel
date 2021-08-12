@@ -26,6 +26,7 @@ VERSIONS = (V('6.0.1', 'llvm', ''),
             V('7.1.0', 'github', '-DLLVM_TEMPORARILY_ALLOW_OLD_TOOLCHAIN=true'),
             V('8.0.1', 'github', '-DLLVM_TEMPORARILY_ALLOW_OLD_TOOLCHAIN=true'),
             V('9.0.0', 'llvm', '-DLLVM_TEMPORARILY_ALLOW_OLD_TOOLCHAIN=true'),
+            V('10.0.1', 'llvm', '-DLLVM_TEMPORARILY_ALLOW_OLD_TOOLCHAIN=true'),
             )
 
 VERSIONS = {v.version: v for v in VERSIONS}
