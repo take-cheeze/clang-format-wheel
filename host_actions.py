@@ -26,7 +26,7 @@ VERSIONS = (V('6.0.1', 'llvm', ''),
             V('7.1.0', 'github', '-DLLVM_TEMPORARILY_ALLOW_OLD_TOOLCHAIN=true'),
             V('8.0.1', 'github', '-DLLVM_TEMPORARILY_ALLOW_OLD_TOOLCHAIN=true'),
             V('9.0.0', 'llvm', '-DLLVM_TEMPORARILY_ALLOW_OLD_TOOLCHAIN=true'),
-            V('10.0.1', 'llvm', '-DLLVM_TEMPORARILY_ALLOW_OLD_TOOLCHAIN=true'),
+            V('10.0.1', 'github', '-DLLVM_TEMPORARILY_ALLOW_OLD_TOOLCHAIN=true'),
             )
 
 VERSIONS = {v.version: v for v in VERSIONS}
@@ -93,11 +93,15 @@ def download_and_extract(version, src_dir, script_dir):
         download(url)
         extract(os.path.basename(url))
 
-        url = os.path.join(base_url, 'cfe-{version}.src.tar.xz').format(version=version.version)
+        clang_name = 'cfe'
+        if int(version.version.split('.')[0]) >= 10:
+            clang_name = 'clang'
+        url = os.path.join(base_url, '{name}-{version}.src.tar.xz').format(name=clang_name,
+                                                                           version=version.version)
         download(url)
         extract(os.path.basename(url))
 
-        shutil.move('cfe-{version}.src'.format(version=version.version),
+        shutil.move('{name}-{version}.src'.format(name=clang_name, version=version.version),
                     'llvm-{version}.src/tools/clang'.format(version=version.version))
 
         clang_format_diff_path = os.path.basename(CLANG_FORMAT_DIFF_URL)
